@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  terraform:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    volumes:
+      - .:/workspaces:cached
+      - ./direnv/config.toml:/root/.config/direnv/config.toml
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - AWS_SESSION_TOKEN
+      - AWS_REGION
+      - AWS_DEFAULT_REGION
+      - AWS_PROFILE
